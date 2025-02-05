@@ -1,0 +1,2 @@
+CFLAGS="-ansi"
+CC="clang"

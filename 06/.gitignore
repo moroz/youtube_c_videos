@@ -1,0 +1,7 @@
+*
+!.gitignore
+!*.c
+!*.h
+!Makefile
+!.clangd
+!ansi
