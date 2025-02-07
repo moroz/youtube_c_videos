@@ -13,6 +13,7 @@ int main() {
   while ((nread = getline(&line, &len, stdin)) != -1) {
     if (len > bufsize) {
       rev = realloc(rev, len);
+      bufsize = len;
     }
     if (line[nread - 1] == '\n') {
       line[nread - 1] = '\0';
