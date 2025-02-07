@@ -1,8 +1,10 @@
-#include <stdbool.h>
 #include <stdio.h>
-#include <string.h>
 
 #define STACKSIZE 1000
+#define true 1
+#define false 0
+
+typedef char bool;
 
 typedef enum {
   TOKEN_LEFT_PAREN = '(',
@@ -29,6 +31,7 @@ Stack stack;
 int main() {
   int c, i;
   int line = 1;
+  Token *token;
 
   resetStack();
 
@@ -42,9 +45,11 @@ int main() {
     }
   }
 
-  for (Token *token = stack.tokens; token < stack.stackTop; token++) {
+  for (token = stack.tokens; token < stack.stackTop; token++) {
     printf("%c ", *token);
   }
+
+  return 0;
 }
 
 Token pair_for(Token token) {
