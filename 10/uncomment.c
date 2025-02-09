@@ -59,17 +59,14 @@ void consume_string_literal() {
   int c;
 
   while ((c = getchar()) != EOF) {
-    putchar(c);
-
     if (c == '\\') {
       if ((c = getchar()) == '"') {
-        putchar(c);
         continue;
       }
     }
 
     if (c == '"') {
-      break;
+      return;
     }
   }
 }

@@ -20,6 +20,7 @@ typedef struct Stack {
   Token *stackTop;
 } Stack;
 
+// Global variable to store global state -- stack of opening tokens
 Stack stack;
 
 static void resetStack();
@@ -28,14 +29,40 @@ Token pop();
 Token matchingToken(Token token);
 void Fatalf(const char *error, ...);
 
+void consumeStringLiteral();
+void consumeCharLiteral();
+void consumeCppStyleComment();
+void consumeCStyleComment();
+
 int main() {
-  int c;
+  int c, lastC;
   Token previous;
 
+  lastC = 0;
   resetStack();
 
   while ((c = getchar()) != EOF) {
     switch (c) {
+    case '"':
+      consumeStringLiteral();
+      break;
+
+    case '\'':
+      consumeCharLiteral();
+      break;
+
+    case '*':
+      if (lastC == '/') {
+        consumeCStyleComment();
+      }
+      break;
+
+    case '/':
+      if (lastC == '/') {
+        consumeCppStyleComment();
+      }
+      break;
+
     case TOKEN_LEFT_BRACE:
     case TOKEN_LEFT_BRACKET:
     case TOKEN_LEFT_PAREN:
@@ -53,6 +80,7 @@ int main() {
       }
       break;
     }
+    lastC = c;
   }
 
   // If the stack is not empty, we have reach EOF without finding a closing
@@ -88,7 +116,7 @@ Token matchingToken(Token token) {
     return TOKEN_LEFT_PAREN;
 
   case TOKEN_RIGHT_BRACKET:
-    return TOKEN_RIGHT_BRACKET;
+    return TOKEN_LEFT_BRACKET;
 
   case TOKEN_RIGHT_BRACE:
     return TOKEN_LEFT_BRACE;
@@ -107,6 +135,7 @@ Token matchingToken(Token token) {
   }
 }
 
+// basically Go's log.Fatalf, but without timestamp for now
 void Fatalf(const char *error, ...) {
   va_list args;
   va_start(args, error);
@@ -118,4 +147,64 @@ void Fatalf(const char *error, ...) {
     putchar('\n');
   }
   exit(1);
+}
+
+void consumeStringLiteral() {
+  int c;
+
+  while ((c = getchar()) != EOF && c != '\n') {
+    // continue consumption on \" escape sequence
+    if (c == '\\') {
+      if ((c = getchar()) == '"') {
+        continue;
+      }
+    }
+
+    if (c == '"') {
+      return;
+    }
+  }
+
+  // no need to return -- Fatalf will call exit(1)
+  if (c == '\n') {
+    Fatalf("unterminated string literal meets newline");
+  }
+
+  Fatalf("unterminated string literal meets EOF");
+}
+
+void consumeCharLiteral() {
+  int c;
+
+  while ((c = getchar()) != EOF) {
+    if (c == '\\') {
+      if ((c = getchar()) == '\'') {
+        continue;
+      }
+    }
+
+    if (c == '\'') {
+      break;
+    }
+  }
+}
+
+void consumeCppStyleComment() {
+  int c;
+
+  while ((c = getchar()) != EOF) {
+    if (c == '\n') {
+      break;
+    }
+  }
+}
+
+void consumeCStyleComment() {
+  int c;
+
+  while ((c = getchar()) != EOF) {
+    if (c == '*' && (c = getchar()) == '/') {
+      break;
+    }
+  }
 }
