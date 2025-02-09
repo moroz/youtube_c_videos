@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define STACK_MAX 256
 
@@ -54,6 +55,14 @@ int main() {
     }
   }
 
+  // If the stack is not empty, we have reach EOF without finding a closing
+  // token
+  if (stack.stackTop != stack.stack) {
+    previous = pop();
+    Fatalf("EOF reached without matching closing token %c for token %c",
+           matchingToken(previous), previous);
+  }
+
   return 0;
 }
 
@@ -84,6 +93,15 @@ Token matchingToken(Token token) {
   case TOKEN_RIGHT_BRACE:
     return TOKEN_LEFT_BRACE;
 
+  case TOKEN_LEFT_BRACE:
+    return TOKEN_RIGHT_BRACE;
+
+  case TOKEN_LEFT_PAREN:
+    return TOKEN_RIGHT_PAREN;
+
+  case TOKEN_LEFT_BRACKET:
+    return TOKEN_RIGHT_BRACKET;
+
   default:
     return TOKEN_ERROR;
   }
@@ -94,5 +112,10 @@ void Fatalf(const char *error, ...) {
   va_start(args, error);
   vfprintf(stderr, error, args);
   va_end(args);
+
+  size_t len = strlen(error);
+  if (error[len - 1] != '\n') {
+    putchar('\n');
+  }
   exit(1);
 }
