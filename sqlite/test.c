@@ -18,9 +18,7 @@ typedef struct Product {
 
 int main() {
   sqlite3 *db; // pointer to DB connection
-  char *zErrMsg =
-      NULL; // buffer to store error message returned by SQLite as a string
-  int rc;   // return code (should be SQLITE_OK on correct execution)
+  int rc;      // return code (should be SQLITE_OK on correct execution)
 
   db = mustConnect("./test.db");
 
