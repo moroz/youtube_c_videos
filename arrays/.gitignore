@@ -1,0 +1,9 @@
+*
+!*.c
+!*.h
+!*.sh
+!Makefile
+!.gitignore
+!init.sql
+sqlite3.c
+
