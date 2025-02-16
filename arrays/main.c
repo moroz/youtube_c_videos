@@ -26,9 +26,9 @@ int main() {
     exit(1);
   }
 
-  ProductArray arr;
+  Array arr;
 
-  initProductArray(&arr);
+  initArray(&arr);
 
   while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
     Product product;
@@ -38,11 +38,11 @@ int main() {
     product.title = malloc(len + 1);
     strcpy(product.title, buf);
 
-    writeProduct(&arr, product);
+    writeArray_Product(&arr, product);
   }
 
   for (int i = 0; i < arr.count; i++) {
-    Product product = arr.items[i];
+    Product product = ((Product *)arr.items)[i];
     printf("%s\n", product.title);
   }
 
