@@ -1,0 +1,87 @@
+:root {
+  --bg-light-gray: #e0e0e0;
+  --bg-pale-blue: #d4e6ff;
+  --bg-pale-peach: #ffe0cc;
+  --bg-pale-mint: #d4ffd4;
+  --bg-pale-lavender: #f0e0ff;
+  --bg-light-cream: #fff6b3;
+  --bg-sky-blue: #ccedff;
+  --bg-light-sage: #e6f5d4;
+  --bg: #132738;
+  --text-hl: #b7f9b2;
+}
+:root {
+  --bg-light-gray: #344b62;
+  --bg-pale-blue: #1e4575;
+  --bg-pale-peach: #483a4a;
+  --bg-pale-mint: #1a4d43;
+  --bg-pale-lavender: #37355f;
+  --bg-light-cream: #3e4833;
+  --bg-sky-blue: #155b7a;
+  --bg-light-sage: #1f4e2c;
+}
+
+@page {
+  size: 2560x1440px;
+}
+
+html {
+  -webkit-print-color-adjust: exact;
+}
+
+table .quantum-0 {
+  background-color: var(--bg-light-gray);
+}
+table .quantum-1 {
+  background-color: var(--bg-pale-blue);
+}
+table .quantum-2 {
+  background-color: var(--bg-pale-peach);
+}
+table .quantum-3 {
+  background-color: var(--bg-pale-mint);
+}
+table .quantum-4 {
+  background-color: var(--bg-pale-lavender);
+}
+table .quantum-5 {
+  background-color: var(--bg-light-cream);
+}
+table .quantum-6 {
+  background-color: var(--bg-sky-blue);
+}
+table .quantum-7 {
+  background-color: var(--bg-light-sage);
+}
+
+table {
+  border-collapse: collapse;
+  font-family: ui-monospace;
+  td,
+  th {
+    border: 1px solid #fff;
+    border-collapse: collapse;
+  }
+
+  tbody td {
+    width: 1rem;
+    text-align: center;
+  }
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-family: Roboto;
+  background: var(--bg);
+  color: #fff;
+}
+
+h2 {
+  color: var(--text-hl);
+  margin-top: 0;
+  text-align: center;
+}

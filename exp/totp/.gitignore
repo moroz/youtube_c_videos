@@ -1,0 +1,7 @@
+./*
+!*.c
+!*.h
+!*.html
+!*.css
+!Makefile
+!./slides/*.*

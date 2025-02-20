@@ -1,0 +1,32 @@
+# Untitled notebook
+
+## Section
+
+```elixir
+"Hello"
+|> String.to_charlist()
+|> Enum.map(fn n -> Integer.to_string(n, 2) end)
+|> Enum.map(fn byte -> String.pad_leading(byte, 8, "0") end)
+|> Enum.join()
+|> String.graphemes()
+|> Enum.with_index()
+|> Enum.map(fn {bit, index} ->
+  class = floor(index / 5)
+  "<td class=\"quantum-#{class}\">#{bit}</td>"
+end)
+|> Enum.join()
+|> IO.puts()
+```
+
+```elixir
+1..5
+|> Enum.map(fn _ -> Enum.to_list(0..7) end)
+|> List.flatten()
+|> Enum.with_index()
+|> Enum.map(fn {n, index} ->
+  quantum = floor(index / 8)
+  "<td class=quantum-#{quantum}>#{n}</td>"
+end)
+|> Enum.join()
+|> IO.puts()
+```
