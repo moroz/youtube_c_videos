@@ -5,6 +5,8 @@
 #include <string.h>
 #include <time.h>
 
+int base32_decode(const char *src, unsigned char *dst);
+
 int decode_hex(const char *hex, unsigned char *dst) {
   for (int i = 0, n = strlen(hex) / 2; i < n; i++) {
     unsigned int byte;
@@ -29,10 +31,10 @@ long int unixepoch() {
 }
 
 int main() {
-  const char *key_hex = "3132333435363738393031323334353637383930";
+  const char *key_base32 = "PHAD43OB23JAWG65LBKHQNHNTXHST66F";
   uint8_t key[20];
   uint8_t digest[16];
-  decode_hex(key_hex, key);
+  base32_decode(key_base32, key);
 
   uint64_t t = unixepoch() / 30;
   uint8_t step_formatted[8];
@@ -45,6 +47,6 @@ int main() {
                ((digest[offset + 1] & 0xFF) << 16) |
                ((digest[offset + 2] & 0xFF) << 8) | (digest[offset + 3] & 0xFF);
 
-  int otp = binary % 100000000;
-  printf("%08d\n", otp);
+  int otp = binary % 1000000;
+  printf("%06d\n", otp);
 }

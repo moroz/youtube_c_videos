@@ -1,9 +1,11 @@
+#include <ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <string.h>
 
-unsigned char decode_base32_char(char c) {
+static const char BASE32_ALPHABET[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+
+static uint8_t decode_base32_char(char c) {
   if (c >= 'A' && c <= 'Z') {
     return c - 'A';
   }
@@ -15,7 +17,7 @@ unsigned char decode_base32_char(char c) {
   return 0xFF;
 }
 
-int decode_base32(const char *src, unsigned char *dst) {
+int base32_decode(const char *src, uint8_t *dst) {
   bool end = false;
   int dsti = 0;
   int n = 0;
@@ -33,6 +35,10 @@ int decode_base32(const char *src, unsigned char *dst) {
 
       char c = *src;
       src++;
+
+      if (isspace(c)) {
+        continue;
+      }
 
       int len = strlen(src);
       if (c == '=' && j >= 2 && len < 8) {
@@ -95,17 +101,60 @@ int decode_base32(const char *src, unsigned char *dst) {
   return n;
 }
 
-int main() {
-  const char *secret = "4DIDVDK7NMU72R34TF5XNXWQBJYEI2RQ";
-  unsigned char dst[80];
-  int rc = decode_base32(secret, dst);
+void base32_encode(const uint8_t *src, char *dst, size_t len) {
+  int si, di;
+  si = di = 0;
 
-  for (int i = 0; i < rc; i++) {
-    printf("%02X ", dst[i]);
-    if (i != 0 && i % 10 == 9) {
-      putchar('\n');
-    }
+  // Only encode full groups of 5 bytes
+  int n = (len / 5) * 5;
+
+  while (si < n) {
+    // combine the binary into two <uint32_t>s so we can operate on contiguous
+    // bytes with a single operation
+    // using 32-bit words so that it can fit in a register on 32-bit platforms
+    uint32_t hi = (src[si + 0] << 24) | (src[si + 1] << 16) |
+                  (src[si + 2] << 8) | (src[si + 3]);
+    uint32_t lo = (hi << 8) | (src[si + 4]);
+
+    dst[di + 0] = BASE32_ALPHABET[hi >> 27 & 0x1F];
+    dst[di + 1] = BASE32_ALPHABET[hi >> 22 & 0x1F];
+    dst[di + 2] = BASE32_ALPHABET[hi >> 17 & 0x1F];
+    dst[di + 3] = BASE32_ALPHABET[hi >> 12 & 0x1F];
+    dst[di + 4] = BASE32_ALPHABET[hi >> 7 & 0x1F];
+    dst[di + 5] = BASE32_ALPHABET[hi >> 2 & 0x1F];
+    dst[di + 6] = BASE32_ALPHABET[lo >> 5 & 0x1F];
+    dst[di + 7] = BASE32_ALPHABET[lo & 0x1F];
+
+    si += 5;
+    di += 8;
   }
 
-  return 0;
+  int remain = len - si;
+  if (remain == 0)
+    return;
+
+  uint32_t val = 0;
+  switch (remain) {
+  case 4:
+    val |= src[si + 3];
+    dst[di + 6] = BASE32_ALPHABET[val << 3 & 0x1F];
+    dst[di + 5] = BASE32_ALPHABET[val >> 2 & 0x1F];
+    // fallthrough
+  case 3:
+    val |= src[si + 2] << 8;
+    dst[di + 4] = BASE32_ALPHABET[val >> 7 & 0x1F];
+  case 2:
+    val |= src[si + 1] << 16;
+    dst[di + 3] = BASE32_ALPHABET[val >> 12 & 0x1F];
+    dst[di + 2] = BASE32_ALPHABET[val >> 17 & 0x1F];
+  case 1:
+    val |= src[si] << 24;
+    dst[di + 1] = BASE32_ALPHABET[val >> 22 & 0x1F];
+    dst[di + 0] = BASE32_ALPHABET[val >> 27 & 0x1F];
+  }
+
+  int npad = (remain * 8 / 5) + 1;
+  for (int i = npad; i < 8; i++) {
+    dst[di + i] = '=';
+  }
 }
