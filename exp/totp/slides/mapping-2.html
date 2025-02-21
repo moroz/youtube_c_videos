@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section>
+      <h2>5 bytes in two 32-bit integers</h2>
+      <pre><code>// High part, values summed using bitwise OR:
+// byte 0 moved 3 bytes left, byte 1 moved 2 bytes left
+// byte 2 moved 1 byte left, byte 3 at the end
+uint32_t hi = (src[0] << 24) | (src[1] << 16) |
+              (src[2] << 8) | (src[3]);
+
+// Low part, take the high value and move it one byte
+// to the left, then put byte 4 of the source at the end
+uint32_t lo = (hi << 8) | src[4];</code></pre>
+    </section>
+  </body>
+</html>

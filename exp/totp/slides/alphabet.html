@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section>
+      <h2>Base32 Alphabet</h2>
+      <table class="alphabet">
+        <tbody>
+          <tr>
+            <td>
+              <div>
+                <span class="letter">A</span>
+                <span class="binary">0b00000</span> <span class="int">0</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">G</span>
+                <span class="binary">0b00110</span> <span class="int">6</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">M</span>
+                <span class="binary">0b01100</span> <span class="int">12</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">S</span>
+                <span class="binary">0b10010</span> <span class="int">18</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">Y</span>
+                <span class="binary">0b11000</span> <span class="int">24</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">6</span>
+                <span class="binary">0b11110</span> <span class="int">30</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <span class="letter">B</span>
+                <span class="binary">0b00001</span> <span class="int">1</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">H</span>
+                <span class="binary">0b00111</span> <span class="int">7</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">N</span>
+                <span class="binary">0b01101</span> <span class="int">13</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">T</span>
+                <span class="binary">0b10011</span> <span class="int">19</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">Z</span>
+                <span class="binary">0b11001</span> <span class="int">25</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">7</span>
+                <span class="binary">0b11111</span> <span class="int">31</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <span class="letter">C</span>
+                <span class="binary">0b00010</span> <span class="int">2</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">I</span>
+                <span class="binary">0b01000</span> <span class="int">8</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">O</span>
+                <span class="binary">0b01110</span> <span class="int">14</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">U</span>
+                <span class="binary">0b10100</span> <span class="int">20</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">2</span>
+                <span class="binary">0b11010</span> <span class="int">26</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <span class="letter">D</span>
+                <span class="binary">0b00011</span> <span class="int">3</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">J</span>
+                <span class="binary">0b01001</span> <span class="int">9</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">P</span>
+                <span class="binary">0b01111</span> <span class="int">15</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">V</span>
+                <span class="binary">0b10101</span> <span class="int">21</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">3</span>
+                <span class="binary">0b11011</span> <span class="int">27</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <span class="letter">E</span>
+                <span class="binary">0b00100</span> <span class="int">4</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">K</span>
+                <span class="binary">0b01010</span> <span class="int">10</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">Q</span>
+                <span class="binary">0b10000</span> <span class="int">16</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">W</span>
+                <span class="binary">0b10110</span> <span class="int">22</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">4</span>
+                <span class="binary">0b11100</span> <span class="int">28</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <span class="letter">F</span>
+                <span class="binary">0b00101</span> <span class="int">5</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">L</span>
+                <span class="binary">0b01011</span> <span class="int">11</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">R</span>
+                <span class="binary">0b10001</span> <span class="int">17</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">X</span>
+                <span class="binary">0b10111</span> <span class="int">23</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="letter">5</span>
+                <span class="binary">0b11101</span> <span class="int">29</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>

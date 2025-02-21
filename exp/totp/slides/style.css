@@ -19,6 +19,7 @@
   --bg-light-cream: #3e4833;
   --bg-sky-blue: #155b7a;
   --bg-light-sage: #1f4e2c;
+  --font-mono: "CaskaydiaMono Nerd Font";
 }
 
 @page {
@@ -54,9 +55,25 @@ table .quantum-7 {
   background-color: var(--bg-light-sage);
 }
 
+.high-int {
+  background-color: var(--bg-sky-blue);
+}
+
+.low-int {
+  background-color: var(--bg-light-sage);
+}
+
+pre code {
+  font-family: var(--font-mono);
+}
+
 table {
+  font-family: var(--font-mono);
+  line-height: 1.75;
+}
+
+table.mapping {
   border-collapse: collapse;
-  font-family: ui-monospace;
   td,
   th {
     border: 1px solid #fff;
@@ -66,6 +83,41 @@ table {
   tbody td {
     width: 1rem;
     text-align: center;
+  }
+}
+
+table.alphabet {
+  border-collapse: collapse;
+
+  .letter {
+    font-size: 2.75rem;
+    grid-row: 1 / span 2;
+    line-height: 1;
+  }
+
+  td {
+    height: 2.5rem;
+    border: 1px solid currentColor;
+
+    > div {
+      display: grid;
+      gap: 0 0.5rem;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: 1fr 1fr;
+      margin: 0.75rem;
+      align-items: center;
+      justify-content: center;
+      text-align: right;
+    }
+  }
+
+  .binary {
+    grid-row: 2;
+    opacity: 0.75;
+  }
+
+  .int {
+    grid-row: 1;
   }
 }
 
@@ -84,4 +136,19 @@ h2 {
   color: var(--text-hl);
   margin-top: 0;
   text-align: center;
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+
+p {
+  width: 800px;
+  text-align: center;
+  font-size: 1.25rem;
+  margin-inline: auto;
+}
+
+pre {
+  font-size: 1.25rem;
+  margin-bottom: 0;
 }

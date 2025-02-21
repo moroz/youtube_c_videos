@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section>
+      <h2>Map bits to Base32 letters</h2>
+      <pre><code>// First letter of the encoded string the first
+// 5 bytes of the high value:
+// Shift 27 bits to the right and mask it with 0b11111:
+result[0] = ALPHABET[hi >> 27 & 0b11111];
+
+// Follow the same rule for the next 5 5-bit
+// blocks of the high value:
+result[1] = ALPHABET[hi >> 22 & 0b11111];
+result[2] = ALPHABET[hi >> 17 & 0b11111];
+result[3] = ALPHABET[hi >> 12 & 0b11111];
+result[4] = ALPHABET[hi >> 7 & 0b11111];
+result[5] = ALPHABET[hi >> 2 & 0b11111];
+
+// The last two letters are the last 10 bits of the
+// low value:
+result[6] = ALPHABET[lo >> 5 & 0b11111];
+result[7] = ALPHABET[lo & 0b11111];</code>
+      </pre>
+    </section>
+  </body>
+</html>

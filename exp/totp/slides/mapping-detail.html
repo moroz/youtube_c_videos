@@ -7,9 +7,22 @@
   </head>
   <body>
     <section>
-      <h2>Bytes to Base32 mapping</h2>
-      <table>
+      <h2>Encoding step 1</h2>
+      <p>
+        Put the 5 bytes of a "quantum" in two 32-bit integers that we can
+        quickly mask and shift (32-bit so it can also be fast on 32-bit
+        platforms).
+      </p>
+      <table class="mapping">
         <thead>
+          <tr>
+            <th colspan="32" class="high-int">uint32_t hi</th>
+            <td colspan="8"></td>
+          </tr>
+          <tr>
+            <td colspan="8"></td>
+            <th colspan="32" class="low-int">uint32_t lo</th>
+          </tr>
           <tr>
             <th colspan="8">byte 0</th>
             <th colspan="8">byte 1</th>
@@ -110,7 +123,7 @@
             <td class="quantum-7">1</td>
             <td class="quantum-7">1</td>
           </tr>
-          <tr>
+          <tr style="display: none">
             <td colspan="5">J</td>
             <td colspan="5">B</td>
             <td colspan="5">S</td>
