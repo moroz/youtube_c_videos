@@ -99,16 +99,37 @@ int base32_decode(const char *src, char *dst, size_t limit) {
       char c = *src;
 
       // Handle and validate padding
-      if (c == '\0' || c == '=') {
-        end = true;
-        dlen = i;
-        break;
+      if (c == '\0') {
+        return BASE32_INCORRECT_PADDING;
       }
 
       src++;
 
       if (isspace(c)) {
         continue;
+      }
+
+      size_t len = strlen(src);
+      if (c == '=' && i >= 2 && len < 8) {
+        if ((len) + i < 8 - 1) {
+          // not enough padding
+          return BASE32_INCORRECT_PADDING;
+        };
+
+        for (int j = 0; j < 8 - 1 - i; j++) {
+          if (len > j && src[j] != '=') {
+            return BASE32_INCORRECT_PADDING;
+          }
+        }
+
+        dlen = i;
+        end = true;
+
+        if (dlen == 1 || dlen == 3 || dlen == 6) {
+          return BASE32_INCORRECT_PADDING;
+        }
+
+        break;
       }
 
       buf[i] = base32_decode_char(c);

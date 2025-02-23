@@ -9,7 +9,7 @@ int main() {
 
   printf("%s\n", dst);
 
-  char *encoded = "JBSWY3DPFQQHO33SNRSCC===";
+  char *encoded = "KBWGKYLTMUQGY2LLMUQGC3TEEBZXKYTTMNZGSYTFEE======";
   int ndecoded = base32_decode(encoded, dst, 80);
   printf("%d\n", ndecoded);
   printf("%s\n", dst);
