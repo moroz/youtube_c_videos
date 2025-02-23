@@ -8,4 +8,6 @@
 
 void base32_encode(const uint8_t *src, char *dst, size_t len);
 
+int base32_decode(const char *src, uint8_t *dst, size_t limit);
+
 #endif
