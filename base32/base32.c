@@ -1,5 +1,8 @@
 #include "base32.h"
+#include <ctype.h>
+#include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
 
 void base32_encode_quantum(const uint8_t *src, char *dst, size_t len) {
   uint32_t hi = (src[0] << 24) | (src[1] << 16) | (src[2] << 8) | src[3];
@@ -68,4 +71,81 @@ void base32_encode(const uint8_t *src, char *dst, size_t len) {
   }
 
   dst[di + 8] = '\0';
+}
+
+static uint8_t base32_decode_char(char c) {
+  if (c >= 'A' && c <= 'Z') {
+    return c - 'A';
+  }
+  if (c >= '2' && c <= '7') {
+    return 26 + c - '2';
+  }
+  return 0xFF; // error value
+}
+
+int base32_decode(const char *src, char *dst, size_t limit) {
+  int n;            // total number of bytes decoded
+  int dsti;         // current position in destination buffer
+  bool end = false; // whether we have reached the end of input
+  n = dsti = 0;
+
+  memset(dst, 0, limit);
+
+  while (*src != '\0' && !end) {
+    uint8_t buf[8];
+    int dlen = 8;
+
+    for (int i = 0; i < 8;) {
+      char c = *src;
+
+      // Handle and validate padding
+      if (c == '\0' || c == '=') {
+        end = true;
+        dlen = i;
+        break;
+      }
+
+      src++;
+
+      if (isspace(c)) {
+        continue;
+      }
+
+      buf[i] = base32_decode_char(c);
+      if (buf[i] == 0xFF) {
+        return BASE32_INCORRECT_SYMBOL;
+      }
+
+      i++;
+    }
+
+    // Handle incorrect values of dlen: 1, 3, 6
+
+    switch (dlen) {
+    case 8:
+      dst[dsti + 4] = (buf[6] << 5) | buf[7];
+      n++;
+      // fallthrough
+
+    case 7:
+      dst[dsti + 3] = (buf[4] << 7) | (buf[5] << 2) | (buf[6] >> 3);
+      n++;
+
+    case 5:
+      dst[dsti + 2] = (buf[3] << 4) | (buf[4] >> 1);
+      n++;
+
+    case 4:
+      dst[dsti + 1] = (buf[1] << 6) | (buf[2] << 1) | (buf[3] >> 4);
+      n++;
+
+    case 2:
+      dst[dsti + 0] = (buf[0] << 3) | (buf[1] >> 2);
+      n++;
+    }
+
+    dsti += 5;
+  }
+
+  return n;
 }

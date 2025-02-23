@@ -8,4 +8,9 @@
 
 void base32_encode(const uint8_t *src, char *dst, size_t len);
 
+#define BASE32_INCORRECT_PADDING (-1)
+#define BASE32_INCORRECT_SYMBOL (-2)
+
+int base32_decode(const char *src, char *dst, size_t limit);
+
 #endif
