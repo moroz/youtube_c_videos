@@ -30,3 +30,27 @@ end)
 |> Enum.join()
 |> IO.puts()
 ```
+
+## Section
+
+```elixir
+secret_base32 = "F4RBFRYZOW7C7NDO2G5SQ54OAUCBPMGU"
+```
+
+```elixir
+secret_base32
+|> String.graphemes()
+|> Enum.map(fn n -> "<td>#{n}</td>" end)
+|> Enum.join()
+|> IO.puts()
+```
+
+```elixir
+secret_base32
+|> Base.decode32!()
+|> :binary.bin_to_list()
+|> Enum.map(fn n -> Integer.to_string(n, 16) |> String.pad_leading(2, "0") end)
+|> Enum.map(fn n -> "<td>#{n}</td>" end)
+|> Enum.join()
+|> IO.puts()
+```

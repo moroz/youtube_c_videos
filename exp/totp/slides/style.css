@@ -1,16 +1,4 @@
 :root {
-  --bg-light-gray: #e0e0e0;
-  --bg-pale-blue: #d4e6ff;
-  --bg-pale-peach: #ffe0cc;
-  --bg-pale-mint: #d4ffd4;
-  --bg-pale-lavender: #f0e0ff;
-  --bg-light-cream: #fff6b3;
-  --bg-sky-blue: #ccedff;
-  --bg-light-sage: #e6f5d4;
-  --bg: #132738;
-  --text-hl: #b7f9b2;
-}
-:root {
   --bg-light-gray: #344b62;
   --bg-pale-blue: #1e4575;
   --bg-pale-peach: #483a4a;
@@ -20,6 +8,14 @@
   --bg-sky-blue: #155b7a;
   --bg-light-sage: #1f4e2c;
   --font-mono: "CaskaydiaMono Nerd Font";
+  --bg: #132738;
+  --text-hl: #b7f9b2;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
@@ -77,7 +73,7 @@ table.mapping {
   }
 
   tbody td {
-    width: 1rem;
+    padding-inline: 5px;
     text-align: center;
   }
 }
@@ -165,4 +161,9 @@ p {
 pre {
   font-size: 1.25rem;
   margin-bottom: 0;
+}
+
+.arrow {
+  font-size: 3.5rem;
+  line-height: 1.75;
 }
