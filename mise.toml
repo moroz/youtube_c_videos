@@ -4,3 +4,6 @@ DATE="$(date +%Y-%m-%d)"
 git tag $DATE -m "Video tag on ${DATE}"
 git push origin $DATE
 """
+
+[tools]
+caddy = "latest"
