@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: [-I/opt/homebrew/opt/openssl@3/include, -L/opt/homebrew/opt/openssl@3/lib, -I/opt/homebrew/opt/cunit/include]

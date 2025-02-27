@@ -1,9 +1,10 @@
-#include <bits/time.h>
+#include <time.h>
 #include <openssl/evp.h>
 #include <openssl/hmac.h>
 #include <stdint.h>
 #include <string.h>
 #include <time.h>
+#include <stdio.h>
 
 int base32_decode(const char *src, unsigned char *dst);
 

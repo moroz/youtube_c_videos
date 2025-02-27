@@ -1,5 +1,5 @@
 CC=clang
-CFLAGS=-g
+# CFLAGS=-g
 
 base32: main.c base32.c
 	$(CC) $(CFLAGS) $^ -o base32
