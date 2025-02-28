@@ -1,0 +1,3 @@
+# Rename this file to `.clangd` if you get LSP warnings on macOS
+CompileFlags:
+  Add: [-I/opt/homebrew/opt/openssl@3/include]

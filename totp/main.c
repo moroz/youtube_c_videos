@@ -1,5 +1,4 @@
 #include "base32.h"
-#include <bits/time.h>
 #include <openssl/evp.h>
 #include <openssl/hmac.h>
 #include <stddef.h>
@@ -34,7 +33,7 @@ int main() {
   base32_decode(SECRET, key, 20);
 
   uint64_t time_step = unixepoch() / 30;
-  printf("%ld\n", time_step);
+  printf("%llu\n", time_step);
 
   uint8_t T[8];
   encode_time_step(time_step, T);
