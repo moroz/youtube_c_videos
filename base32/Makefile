@@ -1,5 +1,5 @@
 CC=clang
-# CFLAGS=-g
+LDFLAGS += -lcrypto -lssl
 
-base32: main.c base32.c
-	$(CC) $(CFLAGS) $^ -o base32
+totp: main.c base32.c
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)

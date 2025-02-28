@@ -83,7 +83,7 @@ static uint8_t base32_decode_char(char c) {
   return 0xFF; // error value
 }
 
-int base32_decode(const char *src, char *dst, size_t limit) {
+int base32_decode(const char *src, uint8_t *dst, size_t limit) {
   int n;            // total number of bytes decoded
   int dsti;         // current position in destination buffer
   bool end = false; // whether we have reached the end of input
