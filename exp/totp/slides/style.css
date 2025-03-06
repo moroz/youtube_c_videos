@@ -25,10 +25,12 @@ html {
 table .quantum-0 {
   background-color: var(--bg-light-gray);
 }
-table .quantum-1 {
+table .quantum-1,
+table .nonce {
   background-color: var(--bg-pale-blue);
 }
-table .quantum-2 {
+table .quantum-2,
+table .ciphertext {
   background-color: var(--bg-pale-peach);
 }
 table .quantum-3 {
@@ -43,7 +45,8 @@ table .quantum-5 {
 table .quantum-6 {
   background-color: var(--bg-sky-blue);
 }
-table .quantum-7 {
+table .quantum-7,
+table .mac {
   background-color: var(--bg-light-sage);
 }
 
@@ -114,32 +117,24 @@ table.alphabet {
 }
 
 body {
+  --gradient: rgba(19, 39, 56, 0.8);
   margin: 0;
   padding: 0;
   font-family: Roboto;
-  background: var(--bg);
   color: #fff;
   overflow: hidden;
+  height: 100vh;
+  background: linear-gradient(var(--gradient), var(--gradient)),
+    url(./489ohv5xzvf31.jpg);
+  background-size: cover;
 }
 
 section {
   height: 100vh;
-  display: grid;
-  place-items: center;
-  position: fixed;
-  inset: 0;
-
-  > * {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &:not(.visible) {
-    visibility: hidden;
-    pointer-events: none;
-    opacity: 0;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 h2 {
@@ -166,4 +161,8 @@ pre {
 .arrow {
   font-size: 3.5rem;
   line-height: 1.75;
+}
+
+.footnote {
+  text-align: left;
 }
